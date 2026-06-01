@@ -2,6 +2,8 @@
 
 ## Overview
 
+![Workflow Overview](Images/workflow-overview.png)
+
 This project automates the complete invoicing process for e-commerce orders using **n8n**, **MySQL**, **JavaScript**, and **REST APIs**.
 
 The workflow retrieves pending orders from a database, validates customer records, prevents duplicate invoices, generates invoices through an accounting platform API, and maintains a complete audit trail of successful and failed transactions.
