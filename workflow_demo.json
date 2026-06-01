@@ -1,0 +1,813 @@
+{
+  "name": "workflow_demo",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "ad415708-4ad8-4584-8a77-d3a0f09424d5",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "abf13873-bff0-4990-be53-1b3a7121ca34",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1360,
+        272
+      ],
+      "id": "19506e07-85a1-410d-902e-fb509e019949",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "774a7080-2fda-42ac-95f3-886eac1e51e4",
+              "name": "cliente_id",
+              "value": "={{ $json.id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1904,
+        400
+      ],
+      "id": "3ac122b0-0b29-4dcf-962a-7c3240d83017",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b59f3820-9568-4eee-bbf2-eadee7ee27d8",
+              "name": "cliente_id",
+              "value": "={{ $json[0].id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1872,
+        192
+      ],
+      "id": "c8d47222-fe44-4662-91d8-8971c679e79d",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "c9d5d8fb-1c96-4593-b139-8cda4a2e76f5",
+              "leftValue": "={{ !!$json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        2496,
+        192
+      ],
+      "id": "44a8f1c9-9131-411f-bbcf-1d3cdd86ef37",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e2a9296a-a6c1-48ac-873c-d56a0697a6c7",
+              "name": "pedido_id",
+              "value": "={{ $('Agrupar pedidos').item.json.pedido_id }}",
+              "type": "string"
+            },
+            {
+              "id": "534aeb69-2e4a-45f3-900c-0329b3bc592a",
+              "name": "cliente",
+              "value": "={{ $('Agrupar pedidos').item.json.cliente.nombre }}",
+              "type": "string"
+            },
+            {
+              "id": "946e9766-a91a-47c3-b4b6-d21f339631ba",
+              "name": "total",
+              "value": "={{ $('Agrupar pedidos').item.json.total_marketplace }}",
+              "type": "string"
+            },
+            {
+              "id": "b6cd40dc-eaca-497a-8e03-176e9d16b73d",
+              "name": "facturas_id",
+              "value": "={{ $json.id }}",
+              "type": "string"
+            },
+            {
+              "id": "5e2b142c-ce4f-4318-a3a7-9eebdc89d993",
+              "name": "factura_numero",
+              "value": "={{ $json.numberTemplate.fullNumber }}",
+              "type": "string"
+            },
+            {
+              "id": "5762c78b-80e6-4744-9ee6-4c88c2a0ff9e",
+              "name": "fecha",
+              "value": "={{ $now }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2768,
+        112
+      ],
+      "id": "87125783-7aa8-486f-b3c6-3ea4e5c2e268",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "content": "🟦 BLOQUE 1 - Obtención de pedidos\n\n1. Consulta pedidos en preparación desde Marketplace\n2. Agrupa productos por pedido\n3. Calcula subtotal y envío",
+        "width": 480,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        160
+      ],
+      "typeVersion": 1,
+      "id": "34399f3a-febb-4710-91fa-c78062a60932",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "🟨 BLOQUE 2 - Control de duplicados\n\nBusca el pedido_id en facturas_emitidas.\n\nSi existe:\n    detener proceso\n\nSi no existe:\n    continuar facturación",
+        "height": 240,
+        "width": 256
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        512,
+        64
+      ],
+      "typeVersion": 1,
+      "id": "4c49c4ac-ab26-4792-bfac-c6f365ce46d9",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "🟩 BLOQUE 3 - Gestión de clientes\n\nBusca cliente en Alegra.\n\nSi existe:\n    usar cliente existente\n\nSi no existe:\n    crear cliente automáticamente",
+        "height": 464,
+        "width": 1280,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        816,
+        112
+      ],
+      "typeVersion": 1,
+      "id": "69a33a5f-2319-4bf3-b20c-7a9532d2eda5",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "\n🟪 BLOQUE 4 - Facturación\n\nGenera factura electrónica en Alegra.\n\nDescripción:\nProducto(s) + envío\n\nValor:\nMarketplace / 1.19",
+        "height": 288,
+        "width": 320,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2128,
+        176
+      ],
+      "typeVersion": 1,
+      "id": "3e786a91-50fa-445a-bb58-4d11b8db1a22",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "🟥 BLOQUE 5 - Auditoría\n\nSi factura creada:\n    guardar en facturas_emitidas\n\nSi factura falla:\n    guardar en facturas_error",
+        "height": 448,
+        "width": 880,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2480,
+        64
+      ],
+      "typeVersion": 1,
+      "id": "002ebce1-6da8-4b9f-bd12-3b656d7d043c",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT\n    vp.pedidos_id,\n    vp.pedidos_fecha,\n    vp.pedidos_estado,\n    ap.pedidos_identificacion,\n    ap.pedidos_nombre,\n    ap.pedidos_correo,\n    ap.pedidos_telefono,\n    ap.pedidos_direccion,\n    ap.pedidos_codigo_postal,\n    vp.departamento,\n    vp.municipio,\n    vp.producto_nombre,\n    vp.detalle_cantidad,\n    vp.detalle_precio,\n    vp.detalle_valor_total,\n    vp.detalle_valor_envio_local,\n    vp.detalle_valor_envio_nal,\n    vp.vendedor\nFROM vista_pedidos vp\nINNER JOIN alma_pedidos ap\nON vp.pedidos_id = ap.pedidos_id\nWHERE vp.pedidos_estado = 'En preparación'\nAND vp.vendedor = 'Alma de las cosas CA'\nORDER BY vp.pedidos_fecha ASC;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        16,
+        272
+      ],
+      "id": "8aeb6526-0b5e-4b4c-a2ef-0a2f632f36e6",
+      "name": "Obtener pedidos marketplace",
+      "executeOnce": true,
+      "credentials": {
+        "mySql": {
+          "id": "HgdGu4dWfOvKsLiq",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const pedidos = {};\n\nfor (const item of items) {\n\n  const row = item.json;\n  const id = row.pedidos_id;\n\n  // Detectar envío\n  const esLocal =\n    row.departamento &&\n    row.departamento.toUpperCase() === 'ANTIOQUIA';\n\n  const valorEnvio = esLocal\n    ? Number(row.detalle_valor_envio_local || 0)\n    : Number(row.detalle_valor_envio_nal || 0);\n\n  const valorProducto =\n    Number(row.detalle_valor_total || 0);\n\n  // Crear pedido\n  if (!pedidos[id]) {\n\n    pedidos[id] = {\n\n      pedido_id: id,\n\n      fecha: row.pedidos_fecha,\n\n      cliente: {\n        nombre: row.pedidos_nombre,\n        identificacion: row.pedidos_identificacion,\n        correo: row.pedidos_correo,\n        telefono: row.pedidos_telefono,\n        direccion: row.pedidos_direccion,\n        municipio: row.municipio,\n        departamento: row.departamento,\n      },\n\n      vendedor: row.vendedor,\n\n      productos: [],\n\n      subtotal_productos: 0,\n\n      valor_envio: valorEnvio\n    };\n  }\n\n  // Agregar producto al texto\n  pedidos[id].productos.push(row.producto_nombre);\n\n  // Acumular valor productos\n  pedidos[id].subtotal_productos += valorProducto;\n}\n\n// Procesar totales\nfor (const id in pedidos) {\n\n  const pedido = pedidos[id];\n\n  // Total marketplace\n  pedido.total_marketplace =\n    pedido.subtotal_productos +\n    pedido.valor_envio;\n\n  // Valor antes de IVA\n  pedido.valor_sin_iva =\n    Math.round(pedido.total_marketplace / 1.19);\n\n  // Descripción factura\n  pedido.descripcion_factura =\n    pedido.productos.join('. ') + '. Envío';\n}\n\nreturn Object.values(pedidos).map(pedido => ({\n  json: pedido\n}));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        256,
+        272
+      ],
+      "id": "919bdb31-c790-4260-bd6a-d06c6965b347",
+      "name": "Agrupar pedidos"
+    },
+    {
+      "parameters": {
+        "operation": "rowNotExists",
+        "dataTableId": {
+          "__rl": true,
+          "value": "5O92M340R9oxfwFC",
+          "mode": "list",
+          "cachedResultName": "facturas_emitidas",
+          "cachedResultUrl": "/projects/eArM1Hm9bFvUS2jE/datatables/5O92M340R9oxfwFC"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "pedido_id",
+              "keyValue": "={{ $json.pedido_id }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        560,
+        272
+      ],
+      "id": "dc83edf5-7d3b-4dcc-9b69-54325ad538db",
+      "name": "¿Pedido ya facturado?"
+    },
+    {
+      "parameters": {
+        "url": "https://api.accounting-platform.com/customers",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "identification",
+              "value": "={{$json.cliente.identificacion}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        976,
+        272
+      ],
+      "id": "f935ed0c-9b6f-4a93-8eb5-dcbf99628f53",
+      "name": "Buscar cliente Alegra",
+      "alwaysOutputData": true,
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "xmwEikroM58oCuOq",
+          "name": "Unnamed credential"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "7464cdae-4e25-42b9-b640-9b0a754e2c2c",
+              "leftValue": "={{ $json.identification }}",
+              "rightValue": "={{ $('Agrupar pedidos').item.json.cliente.identificacion }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.3,
+      "position": [
+        1168,
+        272
+      ],
+      "id": "3a13a524-9473-4b3d-bd35-c88a8963c5f4",
+      "name": "¿Cliente encontrado?"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.accounting-platform.com/invoices",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"nameObject\": {\n    \"firstName\": \"{{$('Agrupar pedidos').item.json.cliente.nombre.split(' ')[0]}}\",\n    \"lastName\": \"{{$('Agrupar pedidos').item.json.cliente.nombre.split(' ').slice(1).join(' ')}}\"\n  },\n  \"name\": \"{{$('Agrupar pedidos').item.json.cliente.nombre}}\",\n  \"identificationObject\": {\n    \"type\": \"CC\",\n    \"number\": \"{{$('Agrupar pedidos').item.json.cliente.identificacion}}\"\n  },\n  \"kindOfPerson\": \"PERSON_ENTITY\",\n  \"regime\": \"SIMPLIFIED_REGIME\",\n  \"email\": \"{{$('Agrupar pedidos').item.json.cliente.correo}}\",\n  \"phonePrimary\": \"{{$('Agrupar pedidos').item.json.cliente.telefono}}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1664,
+        400
+      ],
+      "id": "5f5bf942-4a58-4fb5-86fd-da8ffd7319c2",
+      "name": "Crear cliente Alegra",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "xmwEikroM58oCuOq",
+          "name": "Unnamed credential"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.accounting-platform.com/invoices",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"client\": \"{{ $json.id }}\",\n  \"date\": \"{{ $now.format('yyyy-MM-dd') }}\",\n  \"dueDate\": \"{{ $now.format('yyyy-MM-dd') }}\",\n  \"status\": \"open\",\n  \"paymentForm\": \"CASH\",\n\n  \"items\": [\n    {\n      \"id\": 85,\n      \"price\": {{ $('Agrupar pedidos').item.json.valor_sin_iva }},\n      \"quantity\": 1,\n      \"description\": \"{{ $('Agrupar pedidos').item.json.descripcion_factura }}\",\n\n      \"tax\": [\n        {\n          \"id\": 3\n        }\n      ]\n    }\n  ]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        2208,
+        272
+      ],
+      "id": "92031031-aee7-4fa5-84bd-69fc3342a0e6",
+      "name": "Crear factura Alegra",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "xmwEikroM58oCuOq",
+          "name": "Unnamed credential"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "5O92M340R9oxfwFC",
+          "mode": "list",
+          "cachedResultName": "facturas_emitidas",
+          "cachedResultUrl": "/projects/eArM1Hm9bFvUS2jE/datatables/5O92M340R9oxfwFC"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "facturas_id": "={{ $json.facturas_id }}",
+            "factura_numero": "={{ $json.factura_numero }}",
+            "pedido_id": "={{ $json.pedido_id }}",
+            "cliente": "={{ $json.cliente }}",
+            "total": "={{ $json.total }}",
+            "fecha": "={{ $json.fecha }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "pedido_id",
+              "displayName": "pedido_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "23032",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "cliente",
+              "displayName": "cliente",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "[object Object]",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "total",
+              "displayName": "total",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "49000",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "fecha",
+              "displayName": "fecha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "2025-03-11 09:34:10",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "facturas_id",
+              "displayName": "facturas_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "factura_numero",
+              "displayName": "factura_numero",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        3040,
+        112
+      ],
+      "id": "9af86764-c81b-418b-9dc6-5dace809df40",
+      "name": "Registrar factura emitida"
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "0U0Nx6s2ErP0NZoh",
+          "mode": "list",
+          "cachedResultName": "facturas_error",
+          "cachedResultUrl": "/projects/eArM1Hm9bFvUS2jE/datatables/0U0Nx6s2ErP0NZoh"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "pedido_id": "={{ $('Agrupar pedidos').item.json.pedido_id }}",
+            "cliente": "={{ $('Agrupar pedidos').item.json.cliente.nombre }}",
+            "error": "={{ $json.error.message || 'Error al crear factura' }}",
+            "fecha": "={{ $now }}",
+            "payload": "={{ JSON.stringify($json) }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "pedido_id",
+              "displayName": "pedido_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "cliente",
+              "displayName": "cliente",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "error",
+              "displayName": "error",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "fecha",
+              "displayName": "fecha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "payload",
+              "displayName": "payload",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        3024,
+        368
+      ],
+      "id": "2f376189-5844-4460-b694-35222537bb62",
+      "name": "Registrar error factura"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Obtener pedidos marketplace",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Crear cliente Alegra",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Crear factura Alegra",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Crear factura Alegra",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Registrar error factura",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Registrar factura emitida",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Obtener pedidos marketplace": {
+      "main": [
+        [
+          {
+            "node": "Agrupar pedidos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Agrupar pedidos": {
+      "main": [
+        [
+          {
+            "node": "¿Pedido ya facturado?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Pedido ya facturado?": {
+      "main": [
+        [
+          {
+            "node": "Buscar cliente Alegra",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar cliente Alegra": {
+      "main": [
+        [
+          {
+            "node": "¿Cliente encontrado?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Cliente encontrado?": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crear cliente Alegra": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crear factura Alegra": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "bed86d69-f176-4a22-8fbe-e2c45150d348",
+  "meta": {
+    "instanceId": "349f1031bff772cdf9b55bc83918607ff96a6d89cadeb3bf8fcccec3be153508"
+  },
+  "id": "huKvWI65NpOVJnOe",
+  "tags": []
+}
